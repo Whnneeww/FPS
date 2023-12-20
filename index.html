@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FPS計測</title>
+    <style>
+        #fps {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="fps">FPS: </div>
+
+    <script>
+        var fpsElement = document.getElementById("fps");
+        var frameCount = 0;
+        var startTime = performance.now();
+
+        function updateFPS() {
+            var currentTime = performance.now();
+            var elapsedTime = currentTime - startTime;
+            var fps = Math.round(frameCount / (elapsedTime / 1000));
+
+            fpsElement.innerText = "FPS: " + fps;
+
+            frameCount = 0;
+            startTime = currentTime;
+
+            requestAnimationFrame(updateFPS);
+        }
+
+        function render() {
+            // 描画処理をここに記述する
+
+            frameCount++;
+            requestAnimationFrame(render);
+        }
+
+        updateFPS();
+        render();
+    </script>
+</body>
+</html>
